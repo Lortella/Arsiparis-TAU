@@ -1,0 +1,14 @@
+# Mengabaikan folder Virtual Environment
+env/
+venv/
+
+# Mengabaikan file sistem Python
+__pycache__/
+*.pyc
+
+# Mengabaikan database lokal
+db.sqlite3
+
+# Mengabaikan setting text editor & environment variables
+.vscode/
+.env
