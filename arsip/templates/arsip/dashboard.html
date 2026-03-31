@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Arsiparis TAU</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Background abu-abu kebiruan yang sangat soft (pastel) */
+            color: #333333;
+        }
+        
+        /* Identitas Biru TAU */
+        .bg-tau-blue {
+            background-color: #0A3055 !important; /* Biru Navy khas identitas formal kampus */
+        }
+        .text-tau-blue {
+            color: #0A3055 !important;
+        }
+
+        /* Styling Kartu Modern & Soft */
+        .card-modern {
+            border: none;
+            border-radius: 16px; /* Ujung membulat yang lebih smooth */
+            background-color: #ffffff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); /* Shadow hitam sangat transparan */
+        }
+        
+        /* Efek melayang saat mouse diarahkan ke kartu */
+        .card-modern:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(10, 48, 85, 0.12); /* Shadow memancarkan hint biru TAU */
+        }
+
+        /* Aksen warna pastel di sisi kiri kartu */
+        .accent-surat-masuk { border-left: 6px solid #a3c4f3; } /* Soft Pastel Blue */
+        .accent-surat-keluar { border-left: 6px solid #fbc4ab; } /* Soft Pastel Peach */
+        .accent-proposal { border-left: 6px solid #b5e48c; } /* Soft Pastel Green */
+        
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-tau-blue shadow-sm py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <span class="me-2 fs-4">📁</span> Arsiparis TAU
+            </a>
+            <span class="navbar-text text-light opacity-75 d-none d-md-block">
+                Sistem Informasi STATE
+            </span>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <h2 class="fw-bold text-tau-blue mb-1">Overview Dashboard</h2>
+                <p class="text-muted mb-0">Selamat datang, Administrator. Berikut ringkasan arsip saat ini.</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card card-modern accent-surat-masuk h-100 p-3">
+                    <div class="card-body">
+                        <p class="text-muted fw-semibold mb-1 text-uppercase" style="font-size: 0.85rem; letter-spacing: 1px;">Surat Masuk</p>
+                        <h3 class="stat-number text-tau-blue mb-0">0</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card card-modern accent-surat-keluar h-100 p-3">
+                    <div class="card-body">
+                        <p class="text-muted fw-semibold mb-1 text-uppercase" style="font-size: 0.85rem; letter-spacing: 1px;">Surat Keluar</p>
+                        <h3 class="stat-number text-tau-blue mb-0">0</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card card-modern accent-proposal h-100 p-3">
+                    <div class="card-body">
+                        <p class="text-muted fw-semibold mb-1 text-uppercase" style="font-size: 0.85rem; letter-spacing: 1px;">Proposal & LPJ</p>
+                        <h3 class="stat-number text-tau-blue mb-0">0</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 mb-5">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="fw-bold text-tau-blue mb-0">Arsip Terbaru</h4>
+                    <div>
+                        <button class="btn btn-sm text-white bg-tau-blue px-3 py-2 shadow-sm rounded-3 me-2" style="font-weight: 600;">
+                            + Upload Baru
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary px-3 py-2 rounded-3 fw-semibold">
+                            Lihat Semua Folder
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card card-modern p-0 overflow-hidden">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 align-middle">
+                            <thead class="bg-light text-muted" style="font-size: 0.85rem; letter-spacing: 0.5px;">
+                                <tr>
+                                    <th class="ps-4 py-3 fw-semibold">NAMA DOKUMEN</th>
+                                    <th class="py-3 fw-semibold">KATEGORI</th>
+                                    <th class="py-3 fw-semibold">TANGGAL UPLOAD</th>
+                                    <th class="text-end pe-4 py-3 fw-semibold">AKSI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for doc in dokumen_terbaru %}
+                                <tr>
+                                    <td class="ps-4 py-3">
+                                        <div class="d-flex align-items-center">
+                                            <span class="fs-4 me-3">📄</span>
+                                            <div>
+                                                <h6 class="mb-0 fw-bold text-dark">{{ doc.judul }}</h6>
+                                                <small class="text-muted text-truncate" style="max-width: 200px; display: inline-block;">
+                                                    {{ doc.keterangan|default:"Tidak ada keterangan" }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary bg-opacity-10 text-secondary border px-2 py-1 rounded-pill">
+                                            {{ doc.kategori }}
+                                        </span>
+                                    </td>
+                                    <td class="text-muted small">
+                                        {{ doc.tanggal_upload|date:"d M Y, H:i" }} WIB
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        {% if doc.file_dokumen %}
+                                            <a href="/media/{{ doc.file_dokumen }}" target="_blank" class="btn btn-sm btn-light text-primary fw-semibold border shadow-sm">Buka File</a>
+                                        {% else %}
+                                            <span class="text-muted small">No File</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-5 text-muted">
+                                        <span class="fs-1 d-block mb-3">📭</span>
+                                        Belum ada dokumen yang diunggah ke dalam sistem.
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
